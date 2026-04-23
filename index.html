@@ -98,13 +98,13 @@
       flex-direction: column;
       justify-content: center;
       padding: 8rem 4rem 4rem;
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
     }
 
     .hero-tag {
       font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
+      font-size: 1.2rem;
       color: var(--accent3);
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -122,7 +122,7 @@
 
     .hero h1 {
       font-size: clamp(2.8rem, 6vw, 5rem);
-      font-weight: 800;
+      font-weight: 500;
       line-height: 1.05;
       letter-spacing: -0.02em;
       margin-bottom: 1.5rem;
@@ -136,9 +136,9 @@
     }
 
     .hero-sub {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       color: var(--muted);
-      max-width: 580px;
+      max-width: 1000px;
       line-height: 1.75;
       margin-bottom: 2.5rem;
       font-weight: 400;
@@ -153,7 +153,7 @@
 
     .badge {
       font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
+      font-size: 0.80rem;
       padding: 0.35rem 0.8rem;
       border-radius: 999px;
       border: 1px solid var(--border);
@@ -305,15 +305,15 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 6px;
-      padding: 0.75rem 1rem;
+      padding: 0.95rem 1rem;
       font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
+      font-size: 0.82rem;
       color: var(--muted);
       letter-spacing: 0.04em;
       transition: all 0.2s;
     }
     .skill-chip:hover { border-color: var(--accent2); color: var(--accent2); }
-    .skill-chip span { display: block; color: var(--text); font-weight: 700; margin-bottom: 0.2rem; font-size: 0.8rem; }
+    .skill-chip span { display: block; color: var(--text); font-weight: 800; margin-bottom: 0.2rem; font-size: 0.8rem; }
 
     /* ── POSTS ── */
     .posts-grid {
@@ -511,21 +511,24 @@
     </div>
     <h1>
       Learning out loud.<br/>
-      <span class="gradient">Contributing to</span><br/>
-      the world.
+      <span class="gradient">Contributing to the world.</span><br/>
     </h1>
     <p class="hero-sub">
-      19+ years across Semiconductor, Wireless &amp; AI — from 5G NR L2 protocol stacks
-      to agentic AI systems. One post at a time.
+      With 19+ years across Semiconductor, Wireless &amp; Network function virtualisation — from building L2 protocol stacks to building post silicon validation software. My work has helped solve critical issues inside the base stations that keep
+      you connected, the mobile devices you rely on every day, and the PCs that power a better digital experience.  
+      So yeah, I was part of the transformation from traditional networks to intelligent compute nodes. Now Excited about emerging 
+      AI-driven transformations that empower engineers with higher productivity while keeping security at the core.
     </p>
     <div class="hero-badges">
-      <span class="badge active">5G NR</span>
-      <span class="badge active">Design Patterns</span>
-      <span class="badge active">AI Agents</span>
       <span class="badge">Embedded Systems</span>
       <span class="badge">C / C++</span>
-      <span class="badge">Post-Silicon</span>
       <span class="badge">NFV / Cloud</span>
+      <span class="badge">Post-Silicon</span>
+      <span class="badge">Wireless Networking</span>
+      <span class="badge">NFV / Cloud</span>
+      <span class="badge">Software </span>
+      <span class="badge">Firmware </span>
+      <span class="badge">User mode Driver</span>
     </div>
     <div class="hero-cta">
       <a href="#posts" class="btn btn-primary">
@@ -567,12 +570,12 @@
       <div class="about-text">
         <p>
           I'm <strong>Aparna Mondal</strong>, a Senior Systems Software Engineer with 19+ years
-          of experience riding tech transformations — from embedded telecom systems to
-          cloud-native infrastructure and now AI-driven engineering.
+          of experience driving tech transformations — from embedded telecom systems to
+          cloud-native infrastructure and post silicon validation at Intel and now AI-driven engineering.
         </p>
         <p>
           My journey spans the full depth of the tech stack — building
-          <strong>high-performance protocol stacks</strong> for LTE, 3G, WiMAX and 5G NR,
+          <strong>high-performance L2 protocol stacks</strong> for 4G, 3G, WiMAX and 5G NR,
           delivering <strong>post-silicon validation frameworks at Intel</strong>, and
           architecting cloud-native NFV solutions demonstrated at <strong>MWC Barcelona</strong>.
         </p>
@@ -581,19 +584,19 @@
           <strong>agentic frameworks</strong>, LLM-assisted development and production-scale
           ML systems, while sharing my learnings one post at a time.
         </p>
-        <p style="margin-top:1.5rem; font-family:'Space Mono',monospace; font-size:0.78rem; color:var(--accent3);">
-          M.Tech — BITS Pilani (CGPA 9.35) · B.Tech — CS · Intel · Alcatel-Lucent · HCL
+        <p style="margin-top:1.5rem; font-family:'Space Mono',monospace; font-size:1.1rem; color:var(--accent3);">
+          Intel · Alcatel-Lucent · HCL · Tata Elxsi
         </p>
       </div>
       <div class="skills-grid">
-        <div class="skill-chip"><span>Wireless</span>5G NR · LTE · WiMAX · WLAN</div>
-        <div class="skill-chip"><span>Systems</span>Linux · RTOS · Embedded · x86</div>
+        <div class="skill-chip"><span>Semiconductor</span>Insights From Silicon for AIPC · Post-Si validation</div>
+        <div class="skill-chip"><span>Wireless</span>5G · 4G · 3G · WiMAX · WLAN</div>
+        <div class="skill-chip"><span>Cloud</span>NFV · OpenStack · Devstack · VMware . Bluemix . Cloudify</div>
+        <div class="skill-chip"><span>Systems</span>Linux · Windows · RTOS Embedded · x86</div>
         <div class="skill-chip"><span>Languages</span>C · C++ · Python · Shell</div>
-        <div class="skill-chip"><span>AI / ML</span>LLM · Agents · Anomaly Detection</div>
-        <div class="skill-chip"><span>Cloud</span>OpenStack · NFV · VMware</div>
-        <div class="skill-chip"><span>Security</span>TLS · IPSec · Fuzz Testing</div>
-        <div class="skill-chip"><span>Protocols</span>MAC · RLC · PDCP · HSDPA</div>
-        <div class="skill-chip"><span>Leadership</span>Agile · Product Owner · Mentoring</div>
+        <div class="skill-chip"><span>Security</span>Threat modelling · Fuzz Testing · Key Mgmt · SAST · DAST · SCA · SEC2 · dm-crypt</div>
+        <div class="skill-chip"><span>AI / ML</span>Agents · Anomaly Detection</div>
+        <div class="skill-chip"><span>Leadership</span>Agile · Product Owner Customer acquisition Mentoring </div>
       </div>
     </div>
   </section>
@@ -631,8 +634,8 @@
           <span class="post-tag tag-ai">AI Agents</span>
           <span class="post-date">Coming soon</span>
         </div>
-        <h3>Agentic AI for Telecom — Where to Start</h3>
-        <p>Exploring how agentic frameworks can transform telecom software engineering workflows.</p>
+        <h3>Agentic AI for Learning faster — Where to Start</h3>
+        <p>Exploring how agentic frameworks can transform learning process.</p>
         <div class="post-footer">Coming soon</div>
       </div>
 
