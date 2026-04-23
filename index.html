@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aparna Mondal — Riding Tech Transformations</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #060b14;
+      --surface: #0d1724;
+      --border: #1a2d45;
+      --accent: #00d4ff;
+      --accent2: #7b61ff;
+      --accent3: #00ff9f;
+      --text: #e2eaf4;
+      --muted: #6b8099;
+      --card: #0f1e30;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Glow orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.18;
+    }
+    .orb-1 { width: 600px; height: 600px; background: var(--accent2); top: -200px; right: -100px; }
+    .orb-2 { width: 400px; height: 400px; background: var(--accent); bottom: 100px; left: -100px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(6,11,20,0.75);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent3);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-tag::before {
+      content: '';
+      display: inline-block;
+      width: 32px; height: 1px;
+      background: var(--accent3);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 span.gradient {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 580px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 3rem;
+    }
+
+    .badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      background: var(--surface);
+      transition: all 0.2s;
+    }
+    .badge:hover { border-color: var(--accent); color: var(--accent); }
+    .badge.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(0,212,255,0.07);
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.8rem;
+      border-radius: 6px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+    }
+    .btn-primary:hover { background: #33ddff; transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin: 0 4rem;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 2rem 2.5rem;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+
+    .stat-num {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 4rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-text {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: #a8bdd4;
+      font-weight: 400;
+    }
+
+    .about-text p + p { margin-top: 1.2rem; }
+
+    .about-text strong { color: var(--text); font-weight: 700; }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .skill-chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      transition: all 0.2s;
+    }
+    .skill-chip:hover { border-color: var(--accent2); color: var(--accent2); }
+    .skill-chip span { display: block; color: var(--text); font-weight: 700; margin-bottom: 0.2rem; font-size: 0.8rem; }
+
+    /* ── POSTS ── */
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .post-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.8rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .post-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .post-card:hover {
+      border-color: rgba(0,212,255,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .post-card:hover::before { opacity: 1; }
+
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .post-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .tag-5g { background: rgba(0,212,255,0.1); color: var(--accent); border: 1px solid rgba(0,212,255,0.2); }
+    .tag-pattern { background: rgba(123,97,255,0.1); color: var(--accent2); border: 1px solid rgba(123,97,255,0.2); }
+    .tag-ai { background: rgba(0,255,159,0.1); color: var(--accent3); border: 1px solid rgba(0,255,159,0.2); }
+
+    .post-date {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-left: auto;
+    }
+
+    .post-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+    }
+
+    .post-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .post-footer {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .post-footer svg { transition: transform 0.2s; }
+    .post-card:hover .post-footer svg { transform: translateX(4px); }
+
+    /* ── COMING SOON card ── */
+    .post-card.coming-soon {
+      opacity: 0.5;
+      pointer-events: none;
+      border-style: dashed;
+    }
+    .post-card.coming-soon::before { display: none; }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-brand {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .footer-brand strong { color: var(--accent); }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-tag  { animation: fadeUp 0.6s ease both; }
+    .hero h1   { animation: fadeUp 0.6s 0.1s ease both; }
+    .hero-sub  { animation: fadeUp 0.6s 0.2s ease both; }
+    .hero-badges { animation: fadeUp 0.6s 0.3s ease both; }
+    .hero-cta  { animation: fadeUp 0.6s 0.4s ease both; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .live-dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent3);
+      margin-right: 0.4rem;
+      animation: pulse 2s infinite;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { padding: 7rem 1.5rem 3rem; }
+      .stats-row { margin: 0 1.5rem; flex-wrap: wrap; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      section { padding: 3rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">AM.github.io</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#posts">Posts</a>
+      <a href="https://github.com/AparnaMondal" target="_blank">GitHub</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">
+      <span class="live-dot"></span> Riding Tech Transformations
+    </div>
+    <h1>
+      Learning out loud.<br/>
+      <span class="gradient">Contributing to</span><br/>
+      the world.
+    </h1>
+    <p class="hero-sub">
+      19+ years across Semiconductor, Wireless &amp; AI — from 5G NR L2 protocol stacks
+      to agentic AI systems. One post at a time.
+    </p>
+    <div class="hero-badges">
+      <span class="badge active">5G NR</span>
+      <span class="badge active">Design Patterns</span>
+      <span class="badge active">AI Agents</span>
+      <span class="badge">Embedded Systems</span>
+      <span class="badge">C / C++</span>
+      <span class="badge">Post-Silicon</span>
+      <span class="badge">NFV / Cloud</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#posts" class="btn btn-primary">
+        Read Posts
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#about" class="btn btn-outline">About Me</a>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-num">19+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Tech Domains</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">MWC</div>
+      <div class="stat-label">Global Stages</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Learning Ahead</div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-header">
+      <span class="section-label">01</span>
+      <h2 class="section-title">About Me</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm <strong>Aparna Mondal</strong>, a Senior Systems Software Engineer with 19+ years
+          of experience riding tech transformations — from embedded telecom systems to
+          cloud-native infrastructure and now AI-driven engineering.
+        </p>
+        <p>
+          My journey spans the full depth of the tech stack — building
+          <strong>high-performance protocol stacks</strong> for LTE, 3G, WiMAX and 5G NR,
+          delivering <strong>post-silicon validation frameworks at Intel</strong>, and
+          architecting cloud-native NFV solutions demonstrated at <strong>MWC Barcelona</strong>.
+        </p>
+        <p>
+          Today I'm at the intersection of deep systems engineering and AI — exploring
+          <strong>agentic frameworks</strong>, LLM-assisted development and production-scale
+          ML systems, while sharing my learnings one post at a time.
+        </p>
+        <p style="margin-top:1.5rem; font-family:'Space Mono',monospace; font-size:0.78rem; color:var(--accent3);">
+          M.Tech — BITS Pilani (CGPA 9.35) · B.Tech — CS · Intel · Alcatel-Lucent · HCL
+        </p>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-chip"><span>Wireless</span>5G NR · LTE · WiMAX · WLAN</div>
+        <div class="skill-chip"><span>Systems</span>Linux · RTOS · Embedded · x86</div>
+        <div class="skill-chip"><span>Languages</span>C · C++ · Python · Shell</div>
+        <div class="skill-chip"><span>AI / ML</span>LLM · Agents · Anomaly Detection</div>
+        <div class="skill-chip"><span>Cloud</span>OpenStack · NFV · VMware</div>
+        <div class="skill-chip"><span>Security</span>TLS · IPSec · Fuzz Testing</div>
+        <div class="skill-chip"><span>Protocols</span>MAC · RLC · PDCP · HSDPA</div>
+        <div class="skill-chip"><span>Leadership</span>Agile · Product Owner · Mentoring</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POSTS -->
+  <section id="posts">
+    <div class="section-header">
+      <span class="section-label">02</span>
+      <h2 class="section-title">Posts</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="posts-grid">
+
+      <!-- Post 1 — your actual blog -->
+      <a class="post-card" href="posts/design-patterns/index.html">
+        <div class="post-meta">
+          <span class="post-tag tag-5g">5G NR</span>
+          <span class="post-tag tag-pattern">Design Patterns</span>
+          <span class="post-date">2025</span>
+        </div>
+        <h3>Design Patterns Still Matter — Even When AI Agents Write Your Code</h3>
+        <p>
+          A deep dive into why design patterns are irreplaceable, illustrated with
+          real 5G NR L2 code examples. The blueprint behind the bot.
+        </p>
+        <div class="post-footer">
+          Read post
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <!-- Coming soon cards -->
+      <div class="post-card coming-soon">
+        <div class="post-meta">
+          <span class="post-tag tag-ai">AI Agents</span>
+          <span class="post-date">Coming soon</span>
+        </div>
+        <h3>Agentic AI for Telecom — Where to Start</h3>
+        <p>Exploring how agentic frameworks can transform telecom software engineering workflows.</p>
+        <div class="post-footer">Coming soon</div>
+      </div>
+
+      <div class="post-card coming-soon">
+        <div class="post-meta">
+          <span class="post-tag tag-5g">5G NR</span>
+          <span class="post-date">Coming soon</span>
+        </div>
+        <h3>Inside 5G NR L2 Scheduler — A Deep Dive</h3>
+        <p>Breaking down MAC scheduling decisions in 5G NR with real implementation insights.</p>
+        <div class="post-footer">Coming soon</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">
+      <strong>Aparna Mondal</strong> · Riding Tech Transformations — one post at a time
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/AparnaMondal" target="_blank">GitHub</a>
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    </div>
+  </footer>
+
+</body>
+</html>
