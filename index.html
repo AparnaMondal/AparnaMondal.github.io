@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Why Understanding Design Patterns Matters — Aparna Mondal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <title>Aparna Mondal — Riding Tech Transformations</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
   <style>
-  
     :root {
       --bg: #060b14;
       --surface: #0d1724;
@@ -20,18 +19,18 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Lora', serif;
+      font-family: 'Syne', sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
-      line-height: 1.9;
-      font-size: 1.05rem;
     }
 
+    /* Grid background */
     body::before {
       content: '';
       position: fixed;
@@ -44,6 +43,18 @@
       z-index: 0;
     }
 
+    /* Glow orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.18;
+    }
+    .orb-1 { width: 600px; height: 600px; background: var(--accent2); top: -200px; right: -100px; }
+    .orb-2 { width: 400px; height: 400px; background: var(--accent); bottom: 100px; left: -100px; }
+
     /* ── NAV ── */
     nav {
       position: fixed;
@@ -53,324 +64,358 @@
       justify-content: space-between;
       align-items: center;
       padding: 1.2rem 4rem;
-      background: rgba(6,11,20,0.85);
+      background: rgba(6,11,20,0.75);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
 
-    .content h2:first-of-type {
-  margin-top: 0;
-}
-
-    .nav-back {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+    .nav-logo {
       font-family: 'Space Mono', monospace;
-      font-size: 0.78rem;
+      font-size: 0.85rem;
       color: var(--accent);
+      letter-spacing: 0.1em;
       text-decoration: none;
-      letter-spacing: 0.05em;
-      transition: gap 0.2s;
     }
-    .nav-back:hover { gap: 0.8rem; }
 
-    .nav-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
       color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
       letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
     }
+    .nav-links a:hover { color: var(--accent); }
 
     /* ── HERO ── */
     .hero {
       position: relative;
       z-index: 1;
-      max-width: 820px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 4rem;
+      max-width: 1200px;
       margin: 0 auto;
-	  letter-spacing: 0.1em;
-      padding: 9rem 2rem 4rem;
     }
 
-    .hero-tags {
+    .hero-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.2rem;
+      color: var(--accent3);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
       display: flex;
-      gap: 0.6rem;
-      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-tag::before {
+      content: '';
+      display: inline-block;
+      width: 32px; height: 1px;
+      background: var(--accent3);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
       margin-bottom: 1.5rem;
     }
 
-    .tag {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.68rem;
-      padding: 0.3rem 0.75rem;
-      border-radius: 999px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-    .tag-5g   { background: rgba(0,212,255,0.1); color: var(--accent);  border: 1px solid rgba(0,212,255,0.25); }
-    .tag-pat  { background: rgba(123,97,255,0.1); color: var(--accent2); border: 1px solid rgba(123,97,255,0.25); }
-    .tag-ai   { background: rgba(0,255,159,0.1); color: var(--accent3); border: 1px solid rgba(0,255,159,0.25); }
-
-    .hero h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(1.9rem, 4vw, 2.8rem);
-      font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      margin-bottom: 1.8rem;
-    }
-
-    .hero-meta {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .author {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .author-avatar {
-      width: 36px; height: 36px;
-      border-radius: 50%;
+    .hero h1 span.gradient {
       background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.2rem;
+      color: var(--muted);
+      max-width: 1000px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+    }
+
+    .hero-badges {
       display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 3rem;
+    }
+
+    .badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.80rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      background: var(--surface);
+      transition: all 0.2s;
+    }
+    .badge:hover { border-color: var(--accent); color: var(--accent); }
+    .badge.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(0,212,255,0.07);
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 800;
+      gap: 0.5rem;
+      padding: 0.8rem 1.8rem;
+      border-radius: 6px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
       color: var(--bg);
     }
-
-    .author-info {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
+    .btn-primary:hover { background: #33ddff; transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
     }
-    .author-name { color: var(--text); font-weight: 700; font-size: 0.95rem; }
-    .author-date { color: var(--muted); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
-    /* ── DIVIDER ── */
-    .divider {
-      max-width: 820px;
-      margin: 0 auto;
-      height: 1px;
-      background: var(--border);
+    /* ── STATS ROW ── */
+    .stats-row {
       position: relative;
       z-index: 1;
-    }
-
-    /* ── CONTENT ── */
-    .content {
-      position: relative;
-      z-index: 1;
-      max-width: 820px;
-      margin: 0 auto;
-      padding: 2rem 2rem 6rem;
-    }
-
-    /* Section headings */
-    .content h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      color: var(--accent3);
-      margin-top: 3.5rem;
-      margin-bottom: 1.2rem;
-      padding-bottom: 0.6rem;
+      display: flex;
+      gap: 0;
+      border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
+      margin: 0 4rem;
     }
 
-    .content h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--accent2);
-      margin-top: 2rem;
-      margin-bottom: 0.8rem;
+    .stat {
+      flex: 1;
+      padding: 2rem 2.5rem;
+      border-right: 1px solid var(--border);
     }
+    .stat:last-child { border-right: none; }
 
-    /* Paragraphs */
-    .content p {
-      color: #b8cfe0;
-      margin-bottom: 1.4rem;
-    }
-
-    .content p:last-child { margin-bottom: 0; }
-
-    /* Bold highlight */
-    .content strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    /* Callout / pull quote */
-    .callout {
-      border-left: 3px solid var(--accent);
-      background: rgba(0,212,255,0.05);
-      border-radius: 0 8px 8px 0;
-      padding: 1.2rem 1.5rem;
-      margin: 2rem 0;
-      font-style: italic;
-      color: var(--text);
-      font-size: 1.05rem;
-      line-height: 1.75;
-    }
-
-    .callout strong {
-      font-style: normal;
-      color: var(--accent);
-    }
-
-    /* Lists */
-    .content ul {
-      list-style: none;
-      margin: 1rem 0 1.6rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .content ul li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      color: #b8cfe0;
-      padding-left: 0.5rem;
-    }
-
-    .content ul li::before {
-      content: '→';
-      color: var(--accent);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.85rem;
-      flex-shrink: 0;
-      margin-top: 0.15rem;
-    }
-
-    /* Nested lists */
-    .content ul ul {
-      margin: 0.5rem 0 0.5rem 1.5rem;
-    }
-
-    .content ul ul li::before {
-      content: '·';
-      color: var(--accent2);
-    }
-
-    /* Images */
-    .blog-image {
-display: block;
-  width: 75%;
-  margin: 2.5rem auto;
-  border-radius: 10px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  box-sizing: border-box;
-    }
-
-    .blog-image img {
-      width: 85%;
-      height: auto;
-      display: block;
-    }
-
-    .blog-image figcaption {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--muted);
-      padding: 0.6rem 1rem;
-      background: var(--surface);
-      letter-spacing: 0.04em;
-      text-align: center;
-    }
-
-    /* Code download */
-    .code-download {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.2rem 1.5rem;
-      margin: 2.5rem 0;
-      text-decoration: none;
-      transition: all 0.25s;
-    }
-
-    .code-download:hover {
-      border-color: var(--accent3);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-    }
-
-    .code-icon {
-      width: 42px; height: 42px;
-      border-radius: 8px;
-      background: rgba(0,255,159,0.1);
-      border: 1px solid rgba(0,255,159,0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .code-info { flex: 1; }
-
-    .code-filename {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.85rem;
-      color: var(--accent3);
-      font-weight: 700;
-      display: block;
-      margin-bottom: 0.2rem;
-    }
-
-    .code-desc {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.68rem;
-      color: var(--muted);
-      letter-spacing: 0.04em;
-    }
-
-    .code-arrow {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--accent3);
-      font-weight: 700;
-    }
-
-    /* Conclusion box */
-    .conclusion-box {
-      background: linear-gradient(135deg, rgba(0,212,255,0.05), rgba(123,97,255,0.05));
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 2rem;
-      margin-top: 2rem;
-    }
-
-    .conclusion-box p {
-      margin-bottom: 1rem;
-    }
-
-    .final-line {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.15rem;
+    .stat-num {
+      font-size: 2.5rem;
       font-weight: 800;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-top: 1.2rem !important;
+      line-height: 1;
+      margin-bottom: 0.4rem;
     }
+
+    .stat-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 4rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-text {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: #a8bdd4;
+      font-weight: 400;
+    }
+
+    .about-text p + p { margin-top: 1.2rem; }
+
+    .about-text strong { color: var(--text); font-weight: 700; }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .skill-chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.95rem 1rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      transition: all 0.2s;
+    }
+    .skill-chip:hover { border-color: var(--accent2); color: var(--accent2); }
+    .skill-chip span { display: block; color: var(--text); font-weight: 800; margin-bottom: 0.2rem; font-size: 0.8rem; }
+
+    /* ── POSTS ── */
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .post-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.8rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .post-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .post-card:hover {
+      border-color: rgba(0,212,255,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .post-card:hover::before { opacity: 1; }
+
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .post-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .tag-5g { background: rgba(0,212,255,0.1); color: var(--accent); border: 1px solid rgba(0,212,255,0.2); }
+    .tag-pattern { background: rgba(123,97,255,0.1); color: var(--accent2); border: 1px solid rgba(123,97,255,0.2); }
+    .tag-ai { background: rgba(0,255,159,0.1); color: var(--accent3); border: 1px solid rgba(0,255,159,0.2); }
+
+    .post-date {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-left: auto;
+    }
+
+    .post-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+    }
+
+    .post-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .post-footer {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .post-footer svg { transition: transform 0.2s; }
+    .post-card:hover .post-footer svg { transform: translateX(4px); }
+
+    /* ── COMING SOON card ── */
+    .post-card.coming-soon {
+      opacity: 0.5;
+      pointer-events: none;
+      border-style: dashed;
+    }
+    .post-card.coming-soon::before { display: none; }
 
     /* ── FOOTER ── */
     footer {
@@ -383,571 +428,239 @@ display: block;
       align-items: center;
       flex-wrap: wrap;
       gap: 1rem;
-      max-width: 820px;
-      margin: 0 auto;
     }
 
-    footer a {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+    .footer-brand {
       font-family: 'Space Mono', monospace;
       font-size: 0.75rem;
-      color: var(--accent);
-      text-decoration: none;
-      transition: gap 0.2s;
+      color: var(--muted);
     }
-    footer a:hover { gap: 0.8rem; }
+    .footer-brand strong { color: var(--accent); }
 
-    .footer-copy {
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
       font-family: 'Space Mono', monospace;
       font-size: 0.72rem;
-      color: var(--muted);
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-tag  { animation: fadeUp 0.6s ease both; }
+    .hero h1   { animation: fadeUp 0.6s 0.1s ease both; }
+    .hero-sub  { animation: fadeUp 0.6s 0.2s ease both; }
+    .hero-badges { animation: fadeUp 0.6s 0.3s ease both; }
+    .hero-cta  { animation: fadeUp 0.6s 0.4s ease both; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .live-dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent3);
+      margin-right: 0.4rem;
+      animation: pulse 2s infinite;
     }
 
     /* Responsive */
     @media (max-width: 768px) {
       nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
       .hero { padding: 7rem 1.5rem 3rem; }
-      .content { padding: 2.5rem 1.5rem 4rem; }
-      footer { padding: 2rem 1.5rem; }
+      .stats-row { margin: 0 1.5rem; flex-wrap: wrap; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      section { padding: 3rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
 
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
   <!-- NAV -->
   <nav>
-    <a class="nav-back" href="../../index.html">
-      ← Home
-    </a>
-    <span class="nav-label">Design Patterns · 5G NR</span>
+    <a class="nav-logo" href="#">AM.github.io</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#posts">Posts</a>
+      <a href="https://github.com/AparnaMondal" target="_blank">GitHub</a>
+    </div>
   </nav>
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-tags">
-      <span class="tag tag-5g">5G NR</span>
-      <span class="tag tag-pat">Design Patterns</span>
-      <span class="tag tag-ai">AI Agents</span>
+    <div class="hero-tag">
+      <span class="live-dot"></span> Riding Tech Transformations
     </div>
+    <h1>
+      Learning out loud.<br/>
+      <span class="gradient">Contributing to the world.</span><br/>
+    </h1>
+    <p class="hero-sub">
+      With 19+ years across Semiconductor, Wireless &amp; Network function virtualisation — from building L2 protocol stacks to building post silicon validation software. My work has helped solve critical issues inside the base stations that keep
+      you connected, the mobile devices you rely on every day, and the PCs that power a better digital experience.  
+      So yeah, I was part of the transformation from traditional networks to intelligent compute nodes. Now Excited about emerging 
+      AI-driven transformations that empower engineers with higher productivity while keeping security at the core.
+    </p>
+    <div class="hero-badges">
+      <span class="badge">Embedded Systems</span>
+      <span class="badge">C / C++</span>
+      <span class="badge">NFV / Cloud</span>
+      <span class="badge">Post-Silicon</span>
+      <span class="badge">Wireless Networking</span>
+      <span class="badge">NFV / Cloud</span>
+      <span class="badge">Software </span>
+      <span class="badge">Firmware </span>
+      <span class="badge">User mode Driver</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#posts" class="btn btn-primary">
+        Read Posts
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#about" class="btn btn-outline">About Me</a>
+    </div>
+  </div>
 
-    <h1 id="main-title">Why Understanding Design Patterns Matters in Software Development</h1>
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-num">19+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Tech Domains</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">MWC</div>
+      <div class="stat-label">Global Stages</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Learning Ahead</div>
+    </div>
+  </div>
 
-    <div class="hero-meta">
-      <div class="author">
-        <div class="author-avatar">AM</div>
-        <div class="author-info">
-          <div class="author-name">Aparna Mondal</div>
-          <div class="author-date">2025 · 10 min read</div>
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-header">
+      <span class="section-label">01</span>
+      <h2 class="section-title">About Me</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm <strong>Aparna Mondal</strong>, a Senior Systems Software Engineer with 19+ years
+          of experience driving tech transformations — from embedded telecom systems to
+          cloud-native infrastructure and post silicon validation at Intel and now AI-driven engineering.
+        </p>
+        <p>
+          My journey spans the full depth of the tech stack — building
+          <strong>high-performance L2 protocol stacks</strong> for 4G, 3G, WiMAX and 5G NR,
+          delivering <strong>post-silicon validation frameworks at Intel</strong>, and
+          architecting cloud-native NFV solutions demonstrated at <strong>MWC Barcelona</strong>.
+        </p>
+        <p>
+          Today I'm at the intersection of deep systems engineering and AI — exploring
+          <strong>agentic frameworks</strong>, LLM-assisted development and production-scale
+          ML systems, while sharing my learnings one post at a time.
+        </p>
+        <p style="margin-top:1.5rem; font-family:'Space Mono',monospace; font-size:1.1rem; color:var(--accent3);">
+          Intel · Alcatel-Lucent · HCL · Tata Elxsi
+        </p>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-chip"><span>Semiconductor</span>Insights From Silicon for AIPC · Post-Si validation</div>
+        <div class="skill-chip"><span>Wireless</span>5G · 4G · 3G · WiMAX · WLAN</div>
+        <div class="skill-chip"><span>Cloud</span>NFV · OpenStack · Devstack · VMware . Bluemix . Cloudify</div>
+        <div class="skill-chip"><span>Systems</span>Linux · Windows · RTOS Embedded · x86</div>
+        <div class="skill-chip"><span>Languages</span>C · C++ · Python · Shell</div>
+        <div class="skill-chip"><span>Security</span>Threat modelling · Fuzz Testing · Key Mgmt · SAST · DAST · SCA · SEC2 · dm-crypt</div>
+        <div class="skill-chip"><span>AI / ML</span>Agents · Anomaly Detection</div>
+        <div class="skill-chip"><span>Leadership</span>Agile · Product Owner Customer acquisition Mentoring </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POSTS -->
+  <section id="posts">
+    <div class="section-header">
+      <span class="section-label">02</span>
+      <h2 class="section-title">Posts</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="posts-grid">
+
+      <!-- Post 1 — your actual blog -->
+      <a class="post-card" href="posts/design-patterns/index.html">
+        <div class="post-meta">
+          <span class="post-tag tag-5g">5G NR</span>
+          <span class="post-tag tag-pattern">Design Patterns</span>
+          <span class="post-date">2025</span>
         </div>
+        <h3>Design Patterns Still Matter — Even When AI Agents Write Your Code</h3>
+        <p>
+          A deep dive into why design patterns are irreplaceable, illustrated with
+          real 5G NR L2 code examples. The blueprint behind the bot.
+        </p>
+        <div class="post-footer">
+          Read post
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <!-- Coming soon cards -->
+      <div class="post-card coming-soon">
+        <div class="post-meta">
+          <span class="post-tag tag-ai">AI Agents</span>
+          <span class="post-date">Coming soon</span>
+        </div>
+        <h3>Fast-track your learning with AI agents — Where to Start</h3>
+        <p>Exploring how agentic frameworks can transform learning process.</p>
+        <div class="post-footer">Coming soon</div>
       </div>
-    </div>
-  </div>
 
-  <div class="divider"></div>
-
-  <!-- CONTENT -->
-  <div class="content">
-  
-
-    <!-- INTRODUCTION -->
-    <h2>Introduction</h2>
-
-    <p>
-      Coding agents generate thousands of lines of code
-      every day — syntactically correct, logically structured, and fast.
-    </p>
-
-    <p>
-      But these tools have a fundamental limitation: <strong>a knowledge cutoff</strong>.
-      They do not know your customer's next requirement, your team's constraints, or how
-      your system needs to evolve two years from now. They generate what you ask for —
-      shaped entirely by how well you ask for it.
-    </p>
-
-    <p>What AI cannot do:</p>
-    <ul>
-      <li><strong>Understand real production constraints</strong></li>
-      <li><strong>Enforce correct architectural boundaries</strong></li>
-      <li><strong>Guarantee the right processing order in safety-critical systems</strong></li>
-      <li><strong>Know which design will survive scaling</strong></li>
-    </ul>
-
-    <div class="callout">
-      This is the quiet truth about AI-generated code:<br/>
-      <strong>It reflects the quality of your thinking — not a substitute for it.</strong>
-    </div>
-
-    <p>
-      In modern software engineering, code generation is no longer the bottleneck —
-      <strong>code structure and maintainability are.</strong>
-    </p>
-
-    <p>
-      This is where <strong>design patterns</strong> become essential — not just as coding
-      techniques, but as <strong>proven architectural solutions</strong> to recurring problems.
-      They help build systems that are scalable, maintainable, and aligned with real-world
-      engineering constraints.
-    </p>
-
-    <p>
-      In this blog, we explore this using a <strong>5G NR L2 protocol stack</strong> — showing
-      how design patterns map to real systems, not just academic theory.
-    </p>
-
-    <!-- THE REALITY -->
-    <h2>The Reality of AI-Generated Code</h2>
-
-    <p>AI-generated code is often:</p>
-    <ul>
-      <li>Correct in execution</li>
-      <li>Fast to generate</li>
-      <li>But may be inconsistent in structures for complex software</li>
-      <li>Weak in separation of responsibilities</li>
-      <li>Difficult to evolve in large systems if requirement changes frequently</li>
-    </ul>
-
-    <p>
-      For example, in a telecom or networking system, an AI might generate layered protocol
-      code that works but does not clearly separate concerns or enforce the correct processing
-      order. This becomes a serious issue when scaling to production-grade systems like 5G NR.
-    </p>
-
-    <p>
-      In this project, I generated a simplified version of the L2 layer. It took some effort
-      to refine, but the output serves as a useful skeleton to start a 5G NR L2 design.
-      The code can be found below as <strong>L2_NR_DesignPattern.cpp</strong>.
-    </p>
-
-    <p>
-      Having worked across telecommunications technologies such as WLAN, WiMAX, 3G, 4G, and
-      5G, I have seen how complex production-scale source code becomes when dealing with real
-      customer deployments.
-    </p>
-
-    <p>
-      The goal here is not to highlight how quickly or easily the code was generated using an
-      AI coding agent. Instead, it is to emphasize that the same functional outcome can be
-      achieved in multiple ways through prompts and generation approaches. However, as solution
-      owners, it is critical to gather correct requirements from the customer and structure
-      prompts carefully so that the generated code follows proper design principles.
-    </p>
-
-    <p>Without architectural discipline, such systems become:</p>
-    <ul>
-      <li>Hard to debug</li>
-      <li>Difficult to extend for new features (e.g., new QoS behavior)</li>
-      <li>Prone to tightly coupled logic</li>
-      <li>Expensive to maintain over time</li>
-    </ul>
-
-    <div class="callout">
-      This is exactly where <strong>design patterns transform raw code into
-      engineering-grade architecture.</strong>
-    </div>
-
-    <!-- ARCHITECTURE EXAMPLE -->
-    <h2>Architecture Example: 5G NR Protocol Stack Through Design Patterns</h2>
-
-    <p>
-      Let's examine a real-world-style architecture of the 5G NR protocol stack. Each layer
-      demonstrates how design patterns naturally map to system design.
-    </p>
-
-    <figure class="blog-image">
-      <img src="image1.png" alt="5G NR Protocol Stack Architecture — SDAP, PDCP, RLC, MAC layers with design pattern mapping"/>
-      <figcaption>Fig 1 — 5G NR L2 Protocol Stack Architecture with Design Pattern Mapping</figcaption>
-    </figure>
-
-    <!-- SDAP -->
-    <h2>1. SDAP Layer – Simple Mapping and Responsibility Isolation</h2>
-
-    <p>
-      SDAP sits above PDCP and is introduced in 5G NR to handle
-      <strong>QoS flows instead of traditional bearers</strong>.
-    </p>
-
-    <p>Its responsibility is very focused:</p>
-    <ul>
-      <li>
-        On transmit (Tx): It stamps a <strong>1-byte header with QFI</strong> and maps flows to a DRB
-      </li>
-      <li>
-        On receive (Rx): It can trigger <strong>reflective QoS mapping using the RQI bit</strong>
-      </li>
-    </ul>
-
-    <p>
-      This is a strong example of <strong>single responsibility principle (SRP)</strong> — a key
-      design pattern concept in object-oriented design.
-    </p>
-
-    <p>
-      If AI-generated code tried to combine SDAP with PDCP logic, it would immediately lose
-      clarity and become difficult to maintain.
-    </p>
-
-    <!-- PDCP -->
-    <h2>2. PDCP Layer – Chain of Responsibility Pattern</h2>
-
-    <p>The PDCP layer handles:</p>
-    <ul>
-      <li>Security</li>
-      <li>Header compression</li>
-      <li>Ciphering and integrity protection</li>
-    </ul>
-
-    <p>
-      This layer directly maps to the <strong>Chain of Responsibility pattern</strong>, where
-      each step must occur in a strict order:
-    </p>
-    <ul>
-      <li>COUNT assignment happens first (required for ciphering and integrity input)</li>
-      <li>ROHC compression follows</li>
-      <li>PDCP header is built (used later for MAC-I computation)</li>
-      <li>MAC-I is computed over header + plaintext</li>
-      <li>Ciphering is applied</li>
-      <li>Finally, the header is prepended</li>
-    </ul>
-
-    <p>Each step depends on the previous one.</p>
-
-    <div class="callout">
-      This is critical: If any step is modified or removed,
-      <strong>the entire security chain breaks.</strong>
-    </div>
-
-    <p>
-      Without a design pattern mindset, AI-generated code might mix these steps or reorder
-      them incorrectly, leading to subtle but serious protocol violations.
-    </p>
-
-    <!-- RLC -->
-    <h2>3. RLC Layer – Strategy + Factory + State Machine Patterns</h2>
-
-    <p>
-      RLC is responsible for segmentation and reliable delivery (in AM mode).
-      This layer is a perfect example of <strong>multiple design patterns working together</strong>:
-    </p>
-
-    <h3>Strategy Pattern</h3>
-    <p>The same RLC entity supports multiple modes:</p>
-    <ul>
-      <li>TM (Transparent Mode)</li>
-      <li>UM (Unacknowledged Mode)</li>
-      <li>AM (Acknowledged Mode)</li>
-    </ul>
-    <p>Each mode is a <strong>strategy</strong> selected at runtime.</p>
-
-    <h3>Factory Pattern</h3>
-    <p>
-      The correct RLC strategy is created based on <strong>RRC configuration parameters</strong>,
-      ensuring proper instantiation without hard-coded logic.
-    </p>
-
-    <figure class="blog-image">
-      <img src="image3.png" alt="RLC Factory C++ implementation code snippet"/>
-      <figcaption>Fig 2 — RLC Factory Pattern implementation in C++</figcaption>
-    </figure>
-
-    <h3>State Machine Behavior</h3>
-    <p>In AM mode, the system maintains strict state variables:</p>
-    <ul>
-      <li>VT(A)</li>
-      <li>VT(S)</li>
-      <li>VT(MS)</li>
-    </ul>
-
-    <p>It also processes STATUS PDUs to advance acknowledgment windows.</p>
-
-    <p>Additional compliance rules include:</p>
-    <ul>
-      <li>SN assigned once per SDU at enqueue time</li>
-      <li>Segments carry SI (2-bit) and SO (16-bit offset)</li>
-      <li>Rel-16 suspend/resume lifecycle enforcement</li>
-    </ul>
-
-    <p>
-      Without structured patterns, AI-generated implementations often fail to maintain
-      correct state transitions or reuse logic cleanly.
-    </p>
-
-    <!-- MAC -->
-    <h2>4. MAC Layer – Observer Pattern in Scheduling</h2>
-
-    <p>The MAC layer handles scheduling and radio resource management.</p>
-
-    <p>It strongly reflects the <strong>Observer Pattern</strong>:</p>
-    <ul>
-      <li>The <strong>scheduler acts as the subject (publisher)</strong></li>
-      <li>The <strong>UE MAC entity acts as the observer (subscriber)</strong></li>
-    </ul>
-
-    <p>When a grant is issued:</p>
-    <ul>
-      <li>The scheduler "notifies" UE entities</li>
-      <li>UE MAC reacts by building a MAC PDU</li>
-    </ul>
-
-    <p>Inside the MAC PDU:</p>
-    <ul>
-      <li>Control Elements (BSR, PHR) are placed first</li>
-      <li>Data subPDUs follow priority rules</li>
-    </ul>
-
-    <p>Additional constraints:</p>
-    <ul>
-      <li>HARQ supports up to 16 processes per direction</li>
-      <li>Redundancy Version (RV) follows gNB-controlled sequence (0 → 2 → 3 → 1) as defined in TS 38.214</li>
-    </ul>
-
-    <p>
-      This separation ensures scheduling logic remains independent of UE reaction logic —
-      exactly what the observer pattern enforces.
-    </p>
-
-    <!-- END TO END FLOW -->
-    <h2>End to End Flow</h2>
-
-    <figure class="blog-image">
-      <img src="image2.png" alt="End to end code flow diagram showing design pattern mapping across 5G NR L2 layers"/>
-      <figcaption>Fig 3 — End to End Tx Flow with Design Pattern Mapping across L2 Layers</figcaption>
-    </figure>
-
-    <!-- CODE TO PATTERN MAPPING -->
-    <h2>Code to design pattern mapping</h2>
-
-    <figure class="blog-image">
-      <img src="image4.png" alt="Design pattern summary cards with quick reference table"/>
-      <figcaption>Fig 4 — Design Pattern Summary Cards and Quick Reference</figcaption>
-    </figure>
-
-    <!-- CODE DOWNLOAD -->
-    <a class="code-download" href="L2_NR_DesignPattern.cpp" download>
-      <div class="code-icon">
-        <svg width="20" height="20" fill="none" stroke="#00ff9f" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-          <polyline points="14 2 14 8 20 8"/>
-          <line x1="12" y1="18" x2="12" y2="12"/>
-          <polyline points="9 15 12 18 15 15"/>
-        </svg>
+      <div class="post-card coming-soon">
+        <div class="post-meta">
+          <span class="post-tag tag-5g">5G NR</span>
+          <span class="post-date">Coming soon</span>
+        </div>
+        <h3>Inside 5G NR L2 Scheduler design pattern — A Deep Dive</h3>
+        <p>Breaking down MAC scheduling decisions in 5G NR with real implementation insights.</p>
+        <div class="post-footer">Coming soon</div>
       </div>
-      <div class="code-info">
-        <span class="code-filename">L2_NR_DesignPattern.cpp</span>
-        <span class="code-desc">Full 5G NR L2 implementation · C++ · Design Patterns</span>
-      </div>
-      <span class="code-arrow">↓ Download</span>
-    </a>
 
-    <!-- WHY THIS MATTERS -->
-    <h2>Why This Matters for AI-Generated Code</h2>
-
-    <p>
-      AI can generate the below stack following the mentioned design patterns, but the
-      result may still:
-    </p>
-    <ul>
-      <li>Mix responsibilities across layers</li>
-      <li>Ignore strict processing order</li>
-      <li>Duplicate logic across components</li>
-      <li>Fail under scaling or feature extension</li>
-    </ul>
-
-    <p>Design patterns enforce:</p>
-    <ul>
-      <li>Predictable structure</li>
-      <li>Clear ownership of logic</li>
-      <li>Extensibility without rewriting core systems</li>
-      <li>Compliance with real-world standards (like 3GPP specs)</li>
-    </ul>
-
-    <!-- ALTERNATE PATTERNS -->
-    <h2>Let's see some alternate design patterns</h2>
-
-<style>
-  .alt-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1.5rem 0 2rem;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.8rem;
-  }
-  .alt-table thead tr {
-    background: rgba(0,212,255,0.08);
-    border-bottom: 2px solid var(--accent);
-  }
-  .alt-table th {
-    padding: 0.75rem 1rem;
-    text-align: left;
-    color: var(--accent);
-    font-size: 0.72rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-  .alt-table td {
-    padding: 0.75rem 1rem;
-    vertical-align: top;
-    border-bottom: 1px solid var(--border);
-    color: #b8cfe0;
-    line-height: 1.6;
-  }
-  .alt-table tbody tr:hover {
-    background: rgba(123,97,255,0.05);
-  }
-  .alt-table td:first-child {
-    color: var(--accent2);
-    font-weight: 700;
-    white-space: nowrap;
-  }
-  .alt-table td:nth-child(2) {
-    color: var(--accent3);
-    font-weight: 700;
-    white-space: nowrap;
-  }
-  .alt-pattern-name {
-    display: block;
-    color: var(--text);
-    font-weight: 700;
-    margin-bottom: 0.2rem;
-  }
-  .alt-pattern-desc {
-    color: var(--muted);
-    font-size: 0.72rem;
-  }
-  
- #main-title {
-  letter-spacing: 0.06em;
-}
-</style>
-
-<table class="alt-table">
-  <thead>
-    <tr>
-      <th>Layer</th>
-      <th>Current Pattern</th>
-      <th>Alternative Patterns</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>PDCP</td>
-      <td>Chain of Responsibility</td>
-      <td>
-        <span class="alt-pattern-name">Pipeline / Template Method</span>
-        <span class="alt-pattern-desc">Define the skeleton of the algorithm in a base class, subclasses fill in steps</span><br><br>
-        <span class="alt-pattern-name">Decorator</span>
-        <span class="alt-pattern-desc">Wrap each processing step around the previous one (like middleware in web frameworks)</span><br><br>
-        <span class="alt-pattern-name">Visitor</span>
-        <span class="alt-pattern-desc">Separate the algorithm from the data</span>
-      </td>
-    </tr>
-    <tr>
-      <td>RLC</td>
-      <td>Strategy</td>
-      <td>
-        <span class="alt-pattern-name">State Pattern</span>
-        <span class="alt-pattern-desc">The mode itself could be a state, where mode changes trigger state transitions</span><br><br>
-        <span class="alt-pattern-name">Template Method</span>
-        <span class="alt-pattern-desc">Base class defines segmentation skeleton, subclasses override specifics</span><br><br>
-        <span class="alt-pattern-name">Policy-based Design (C++ templates)</span>
-        <span class="alt-pattern-desc">Compile-time strategy selection</span>
-      </td>
-    </tr>
-    <tr>
-      <td>RLC Factory</td>
-      <td>Factory</td>
-      <td>
-        <span class="alt-pattern-name">Abstract Factory</span>
-        <span class="alt-pattern-desc">Create families of related objects together, like RLC entity paired with PDCP config</span><br><br>
-        <span class="alt-pattern-name">Builder</span>
-        <span class="alt-pattern-desc">Step-by-step construction of complex RLC entities</span><br><br>
-        <span class="alt-pattern-name">Prototype</span>
-        <span class="alt-pattern-desc">Clone an existing configured entity</span>
-      </td>
-    </tr>
-    <tr>
-      <td>RLC AM</td>
-      <td>State Machine</td>
-      <td>
-        <span class="alt-pattern-name">State Pattern (GoF)</span>
-        <span class="alt-pattern-desc">Each state becomes its own class handling transitions and behavior</span><br><br>
-        <span class="alt-pattern-name">Enum + Table-driven Transitions</span>
-        <span class="alt-pattern-desc">Use a transition table to map state changes</span><br><br>
-        <span class="alt-pattern-name">Statechart / Hierarchical State Machine</span>
-        <span class="alt-pattern-desc">Handles more complex nested states</span>
-      </td>
-    </tr>
-    <tr>
-      <td>MAC Scheduler</td>
-      <td>Observer</td>
-      <td>
-        <span class="alt-pattern-name">Mediator</span>
-        <span class="alt-pattern-desc">Scheduler acts as mediator between UEs and gNB</span><br><br>
-        <span class="alt-pattern-name">Event Bus / Message Queue</span>
-        <span class="alt-pattern-desc">Decouple components through a queue</span><br><br>
-        <span class="alt-pattern-name">Reactor Pattern</span>
-        <span class="alt-pattern-desc">Event-driven architecture with registered handlers</span><br><br>
-        <span class="alt-pattern-name">Publish-Subscribe</span>
-        <span class="alt-pattern-desc">Topic-based messaging</span>
-      </td>
-    </tr>
-    <tr>
-      <td>HARQ</td>
-      <td>Command</td>
-      <td>
-        <span class="alt-pattern-name">Memento</span>
-        <span class="alt-pattern-desc">Save and restore TB state for retransmission</span><br><br>
-        <span class="alt-pattern-name">Strategy</span>
-        <span class="alt-pattern-desc">Different retransmission strategies like chase combining versus incremental redundancy</span><br><br>
-        <span class="alt-pattern-name">Template Method</span>
-        <span class="alt-pattern-desc">Define the retransmission skeleton</span>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-    <!-- CONCLUSION -->
-    <h2>Conclusion</h2>
-
-    <div class="conclusion-box">
-      <p>
-        AI tools are changing how software is written, but they do not automatically
-        guarantee that it has good architecture.
-      </p>
-
-	  <p>
-	In production telecom systems, architectural flaws can cause dropped connections, security vulnerabilities, failed certification, and entire system redesigns at enormous cost.
-AI-generated code without pattern awareness will produce exactly these flaws — functional on the surface, broken underneath.
-      </p>
-      <p>The 5G NR stack example shows a key truth:</p>
-
-      <p>
-        Complex systems are not defined by how much code they contain, but by how well
-        their responsibilities are structured.
-      </p>
-
-      <p>Design patterns act as the bridge between:</p>
-      <ul>
-        <li>Raw AI-generated code</li>
-        <li>And production-grade software architecture</li>
-      </ul>
-
-      <p>
-        They are not optional knowledge — they are essential engineering discipline.
-      </p>
-
-      <p class="final-line">
-        AI writes code. Design patterns make it correct, scalable, and maintainable.
-      </p>
     </div>
-
-  </div>
+  </section>
 
   <!-- FOOTER -->
   <footer>
-    <a href="../../index.html">← Back to Home</a>
-    <span class="footer-copy">© Aparna Mondal · Riding Tech Transformations</span>
+    <div class="footer-brand">
+      <strong>Aparna Mondal</strong> · Riding Tech Transformations — one post at a time
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/AparnaMondal" target="_blank">GitHub</a>
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    </div>
   </footer>
 
 </body>
