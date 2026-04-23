@@ -755,57 +755,146 @@
     <!-- ALTERNATE PATTERNS -->
     <h2>Let's see some alternate design patterns</h2>
 
-    <ul>
-      <li>
-        <strong>PDCP - Chain of Responsibility</strong> → Alternatives:
-        <ul>
-          <li><strong>Pipeline / Template Method</strong> — Define the skeleton of the algorithm in a base class, subclasses fill in steps</li>
-          <li><strong>Decorator</strong> — Wrap each processing step around the previous one (like middleware in web frameworks)</li>
-          <li><strong>Visitor</strong> — Separate the algorithm from the data</li>
-        </ul>
-      </li>
-      <li>
-        <strong>RLC - Strategy</strong> → Alternatives:
-        <ul>
-          <li><strong>State pattern</strong> — The mode itself could be a state, where mode changes trigger state transitions</li>
-          <li><strong>Template Method</strong> — Base class defines segmentation skeleton, subclasses override specifics</li>
-          <li><strong>Policy-based design (C++ templates)</strong> — Compile-time strategy selection</li>
-        </ul>
-      </li>
-      <li>
-        <strong>RLC Factory</strong> → Alternatives:
-        <ul>
-          <li><strong>Abstract Factory</strong> — Create families of related objects together, like RLC entity paired with PDCP config</li>
-          <li><strong>Builder</strong> — Step-by-step construction of complex RLC entities</li>
-          <li><strong>Prototype</strong> — Clone an existing configured entity</li>
-        </ul>
-      </li>
-      <li>
-        <strong>RLC AM State Machine</strong> → Alternatives:
-        <ul>
-          <li><strong>State pattern (GoF)</strong> — Each state becomes its own class handling transitions and behavior</li>
-          <li><strong>Enum + table-driven transitions</strong> — Use a transition table to map state changes</li>
-          <li><strong>Statechart / Hierarchical State Machine</strong> — Handles more complex nested states</li>
-        </ul>
-      </li>
-      <li>
-        <strong>MAC Scheduler - Observer</strong> → Alternatives:
-        <ul>
-          <li><strong>Mediator</strong> — Scheduler acts as mediator between UEs and gNB</li>
-          <li><strong>Event Bus / Message Queue</strong> — Decouple components through a queue</li>
-          <li><strong>Reactor pattern</strong> — Event-driven architecture with registered handlers</li>
-          <li><strong>Publish-Subscribe</strong> — Topic-based messaging</li>
-        </ul>
-      </li>
-      <li>
-        <strong>HARQ - Command</strong> → Alternatives:
-        <ul>
-          <li><strong>Memento</strong> — Save and restore TB state for retransmission</li>
-          <li><strong>Strategy</strong> — Different retransmission strategies like chase combining versus incremental redundancy</li>
-          <li><strong>Template Method</strong> — Define the retransmission skeleton</li>
-        </ul>
-      </li>
-    </ul>
+    <!-- ALTERNATE PATTERNS -->
+<h2>Let's see some alternate design patterns</h2>
+
+<style>
+  .alt-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0 2rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+  }
+  .alt-table thead tr {
+    background: rgba(0,212,255,0.08);
+    border-bottom: 2px solid var(--accent);
+  }
+  .alt-table th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    color: var(--accent);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .alt-table td {
+    padding: 0.75rem 1rem;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+    color: #b8cfe0;
+    line-height: 1.6;
+  }
+  .alt-table tbody tr:hover {
+    background: rgba(123,97,255,0.05);
+  }
+  .alt-table td:first-child {
+    color: var(--accent2);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .alt-table td:nth-child(2) {
+    color: var(--accent3);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .alt-pattern-name {
+    display: block;
+    color: var(--text);
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+  }
+  .alt-pattern-desc {
+    color: var(--muted);
+    font-size: 0.72rem;
+  }
+</style>
+
+<table class="alt-table">
+  <thead>
+    <tr>
+      <th>Layer</th>
+      <th>Current Pattern</th>
+      <th>Alternative Patterns</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PDCP</td>
+      <td>Chain of Responsibility</td>
+      <td>
+        <span class="alt-pattern-name">Pipeline / Template Method</span>
+        <span class="alt-pattern-desc">Define the skeleton of the algorithm in a base class, subclasses fill in steps</span><br><br>
+        <span class="alt-pattern-name">Decorator</span>
+        <span class="alt-pattern-desc">Wrap each processing step around the previous one (like middleware in web frameworks)</span><br><br>
+        <span class="alt-pattern-name">Visitor</span>
+        <span class="alt-pattern-desc">Separate the algorithm from the data</span>
+      </td>
+    </tr>
+    <tr>
+      <td>RLC</td>
+      <td>Strategy</td>
+      <td>
+        <span class="alt-pattern-name">State Pattern</span>
+        <span class="alt-pattern-desc">The mode itself could be a state, where mode changes trigger state transitions</span><br><br>
+        <span class="alt-pattern-name">Template Method</span>
+        <span class="alt-pattern-desc">Base class defines segmentation skeleton, subclasses override specifics</span><br><br>
+        <span class="alt-pattern-name">Policy-based Design (C++ templates)</span>
+        <span class="alt-pattern-desc">Compile-time strategy selection</span>
+      </td>
+    </tr>
+    <tr>
+      <td>RLC Factory</td>
+      <td>Factory</td>
+      <td>
+        <span class="alt-pattern-name">Abstract Factory</span>
+        <span class="alt-pattern-desc">Create families of related objects together, like RLC entity paired with PDCP config</span><br><br>
+        <span class="alt-pattern-name">Builder</span>
+        <span class="alt-pattern-desc">Step-by-step construction of complex RLC entities</span><br><br>
+        <span class="alt-pattern-name">Prototype</span>
+        <span class="alt-pattern-desc">Clone an existing configured entity</span>
+      </td>
+    </tr>
+    <tr>
+      <td>RLC AM</td>
+      <td>State Machine</td>
+      <td>
+        <span class="alt-pattern-name">State Pattern (GoF)</span>
+        <span class="alt-pattern-desc">Each state becomes its own class handling transitions and behavior</span><br><br>
+        <span class="alt-pattern-name">Enum + Table-driven Transitions</span>
+        <span class="alt-pattern-desc">Use a transition table to map state changes</span><br><br>
+        <span class="alt-pattern-name">Statechart / Hierarchical State Machine</span>
+        <span class="alt-pattern-desc">Handles more complex nested states</span>
+      </td>
+    </tr>
+    <tr>
+      <td>MAC Scheduler</td>
+      <td>Observer</td>
+      <td>
+        <span class="alt-pattern-name">Mediator</span>
+        <span class="alt-pattern-desc">Scheduler acts as mediator between UEs and gNB</span><br><br>
+        <span class="alt-pattern-name">Event Bus / Message Queue</span>
+        <span class="alt-pattern-desc">Decouple components through a queue</span><br><br>
+        <span class="alt-pattern-name">Reactor Pattern</span>
+        <span class="alt-pattern-desc">Event-driven architecture with registered handlers</span><br><br>
+        <span class="alt-pattern-name">Publish-Subscribe</span>
+        <span class="alt-pattern-desc">Topic-based messaging</span>
+      </td>
+    </tr>
+    <tr>
+      <td>HARQ</td>
+      <td>Command</td>
+      <td>
+        <span class="alt-pattern-name">Memento</span>
+        <span class="alt-pattern-desc">Save and restore TB state for retransmission</span><br><br>
+        <span class="alt-pattern-name">Strategy</span>
+        <span class="alt-pattern-desc">Different retransmission strategies like chase combining versus incremental redundancy</span><br><br>
+        <span class="alt-pattern-name">Template Method</span>
+        <span class="alt-pattern-desc">Define the retransmission skeleton</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
     <!-- CONCLUSION -->
     <h2>Conclusion</h2>
