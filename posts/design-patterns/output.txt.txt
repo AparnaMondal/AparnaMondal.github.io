@@ -1,0 +1,87 @@
+=== 3GPP 5G NR L2 — Spec-Compliant Demo ===
+
+--- §1 SDAP (TS 38.348) ---
+[SDAP-Tx] QFI=5 PDU=5B
+  SDAP PDU size=5B (1B SDAP hdr + IP)
+
+--- §2 PDCP (TS 38.323) — COUNT + correct Tx order ---
+[PDCP-Tx] bearer=1(DRB) SN=0 COUNT=0 PDU=21B cipher=NEA2 integ=no
+  DRB PDU size=21B  COUNT=0
+[PDCP-Tx] bearer=1(DRB) SN=1 COUNT=1 PDU=21B cipher=NEA2 integ=no
+  DRB PDU size=21B  COUNT=1
+[PDCP-Tx] bearer=1(DRB) SN=2 COUNT=2 PDU=21B cipher=NEA2 integ=no
+  DRB PDU size=21B  COUNT=2
+
+[PDCP-Tx] bearer=1(SRB) SN=0 COUNT=0 PDU=10B cipher=NEA2 integ=yes
+  SRB PDU size=10B (2B hdr + ciphered(payload+4B MAC-I))
+
+[PDCP-Tx] bearer=2(DRB) SN=0 COUNT=0 PDU=21B cipher=NEA2 integ=yes
+  DRB+integ PDU size=21B (3B hdr + ciphered(payload) + 4B MAC-I)
+
+--- §3 RLC (TS 38.322) ---
+[RlcFactory] Creating AM-SN12 bearer=1
+
+  Grant=20: segmenting SDU-0
+[RLC-AM-SN12] grant=20 → 1 PDU(s) VT(A)=0 VT(S)=2
+    AMD PDU SN=0 size=20B  D/C=1 P=0 SI=1
+  Grant=40: remaining segments + SDU-1
+[RLC-AM-SN12] grant=40 → 2 PDU(s) VT(A)=0 VT(S)=2
+    AMD PDU SN=0 size=16B  SI=2
+    AMD PDU SN=1 size=14B  SI=0
+
+  Rx STATUS PDU (ACK_SN=1, no NACKs):
+[RLC-AM] STATUS: ACK_SN=1 (advancing VT(A) from 0)
+
+  UM-SN6 PDUs:
+[RlcFactory] Creating UM-SN6 bearer=3
+[RLC-UM-SN6] grant=30 → 1 PDU(s)
+    UMD PDU SN=0 size=26B
+
+--- §3.1 RLC AM State Machine (Rel-16 suspend/resume) ---
+[RLC-AM-SM] IDLE → DATA_TRANSFER_READY
+  can_tx=yes
+[RLC-AM-SM] DATA_TRANSFER_READY → SUSPENDED
+  can_tx=no
+[RLC-AM-SM] SUSPENDED → DATA_TRANSFER_READY
+[RLC-AM-SM] DATA_TRANSFER_READY → IDLE
+
+--- §4 MAC Scheduler + HARQ (TS 38.321 / TS 38.214) ---
+
+[Scheduler] === UL TTI: cell_grant=3000B ===
+[Scheduler] UL grant RNTI=0xc001 TBS=960B HARQ=0 RV=0 CQI=12
+[MAC-UE:0xc001] UL grant TBS=960B HARQ=0
+[MAC-UE:0xc001] Long BSR bitmap=0x3
+[MAC-UE:0xc001] PHR CE included
+[MAC-UE:0xc001] LCH-3(LCG=0,prio=1) served=700B
+[MAC-UE:0xc001] LCH-4(LCG=1,prio=3) served=250B
+[HARQ-0] New Tx TBS=963B RV=0
+[Scheduler] UL grant RNTI=0xc002 TBS=600B HARQ=1 RV=0 CQI=8
+[MAC-UE:0xc002] UL grant TBS=600B HARQ=1
+[MAC-UE:0xc002] Short BSR LCG=0 idx=0
+[HARQ-1] New Tx TBS=3B RV=0
+
+[Scheduler] === DL TTI: cell_grant=3000B ===
+[Scheduler] DL grant RNTI=0xc001 TBS=960B HARQ=2 RV=0
+[MAC-UE:0xc001] DL grant TBS=960B HARQ=2
+[HARQ-2] New Tx TBS=960B RV=0
+[Scheduler] DL grant RNTI=0xc002 TBS=400B HARQ=3 RV=0
+[MAC-UE:0xc002] DL grant TBS=400B HARQ=3
+[HARQ-3] New Tx TBS=400B RV=0
+[Scheduler] DL grant RNTI=0xc003 TBS=300B HARQ=4 RV=0
+
+[Scheduler] === UL TTI: cell_grant=3000B ===
+[Scheduler] UL grant RNTI=0xc001 TBS=540B HARQ=5 RV=0 CQI=12
+[MAC-UE:0xc001] UL grant TBS=540B HARQ=5
+[MAC-UE:0xc001] Short BSR LCG=1 idx=11
+[MAC-UE:0xc001] LCH-4(LCG=1,prio=3) served=50B
+[MAC-UE:0xc001] LCH-5(LCG=1,prio=5) served=120B
+[HARQ-5] New Tx TBS=177B RV=0
+
+--- HARQ NACK/ACK with gNB-signalled RV (TS 38.214 §5.4.2.1) ---
+[Scheduler] UL retx RNTI=0xc001 HARQ=0 RV=2 (retx#1)
+[HARQ-0] Retx #1 gNB-signalled RV=2 TBS=963B
+[Scheduler] UL retx RNTI=0xc001 HARQ=0 RV=3 (retx#2)
+[HARQ-0] Retx #2 gNB-signalled RV=3 TBS=963B
+[HARQ-0] ACK — process free
+
+=== Demo complete ===
